@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="pi-top" Version="1.0.356" />
+    <PackageReference Include="pi-top.MakerArchitecture.FoundationKit" Version="1.0.356" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SshDeployHost>192.168.64.1</SshDeployHost>
+    <SshDeployClean />
+    <SshDeployTargetPath>/home/pi/Projects/Debug/PiTop.Tests</SshDeployTargetPath>
+    <SshDeployUsername>pi</SshDeployUsername>
+    <SshDeployPassword>pi-top</SshDeployPassword>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <Target Condition="$(BuildingInsideSshDeploy) ==''" Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd $(ProjectDir)" />
+    <Exec Command="dotnet dotnet-sshdeploy push" />
+  </Target>
+
+</Project>
