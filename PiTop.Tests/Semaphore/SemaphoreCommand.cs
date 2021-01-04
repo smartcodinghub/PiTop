@@ -30,11 +30,11 @@ namespace PiTop.Tests.Semaphore
             using Led yellow = plate.GetOrCreateLed(DigitalPort.D1);
             using Led red = plate.GetOrCreateLed(DigitalPort.D2);
 
-            Led[] leds = new[] { green, yellow, red };
+            Led[] semaphore = new[] { green, yellow, red };
 
             for (int i = 0; i < Count; i++)
             {
-                foreach (var led in leds)
+                foreach (var led in semaphore)
                 {
                     led.On();
                     Thread.Sleep(1000);
